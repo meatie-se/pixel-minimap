@@ -1,0 +1,102 @@
+{ "comment": "",
+
+"Boxxy": {
+  "name": "_Boxxy.png",
+  "x": -694,  "y": -646,
+  "width": 51, "height": 78
+}
+
+,"Sverige": {
+  "name": "Sverige-2.png",
+  "x": -1006,  "y": -646,
+  "width": 559, "height": 415
+}
+
+,"UK": {
+  "name": "UK-3.png",
+  "x": -292,  "y": 439,
+  "width": 591, "height": 239
+}
+
+,"North_UK": {
+  "name": "North_UK-2.png",
+  "x": -100,  "y": -4039,
+  "width": 578, "height": 380
+}
+
+,"UK-giant": {
+  "name": "UK-giant.png",
+  "x": -1194,  "y": 3268,
+  "width": 721, "height": 406
+}
+
+,"UK-n-ireland": {
+  "name": "UK-n-ireland.png",
+  "x": -4073,  "y": 1989,
+  "width": 242, "height": 196
+}
+
+,"mini_cooper": {
+  "name": "mini_cooper.png",
+  "x": -444,  "y": 543,
+  "width": 154, "height": 93
+}
+
+,"England": {
+  "name": "england.png",
+  "x": -974,  "y": -1424,
+  "width": 366, "height": 232
+}
+
+,"commonwealth": {
+  "name": "commonwealth.png",
+  "x": -541,  "y": -3886,
+  "width": 204, "height": 122
+}
+
+,"DrWho": {
+  "name": "DrWho.png",
+  "x": -541,  "y": -4073,
+  "width": 443, "height": 509
+}
+
+,"USA": {
+  "name": "USA.png",
+  "x": -600,  "y": -1100,
+  "width": 400, "height": 252
+}
+
+,"world-map": {
+  "name": "world-01template.png",
+  "x": -273,  "y": 1728,
+  "width": 1363, "height": 635
+}
+
+,"blondgirl-area": {
+  "name": "blondgirl-area.png",
+  "x": 3290,  "y": -4096,
+  "width": 800, "height": 407
+}
+
+,"Lain": {
+  "name": "lain.png",
+  "x": -273,  "y": 1429,
+  "width": 249, "height": 299
+}
+
+,"turkey_big": {
+  "name": "turkey_big.png",
+  "x": -4096,  "y": 3295,
+  "width": 1307, "height": 802
+}
+
+,"TwentyOneBase": {
+  "name": "TwentyOneBaseNew.png",
+  "x": 843,  "y": -2940,
+  "width": 768, "height": 427
+}
+
+
+
+
+}
