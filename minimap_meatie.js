@@ -559,4 +559,5 @@ Colors.getColorIdFromRGB([0,0,230])  exact only
 Colors.getColorStrFromId(15) = "rgb(0, 0, 230)"
 
 Cookie: lastPaletteColor
+.
 */
