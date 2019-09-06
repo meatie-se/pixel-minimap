@@ -1,8 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
-// @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.7.2
+// @version      1.7.3
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -16,17 +15,19 @@ Instructions
 
 Use Tampermonkey plugin to inject this into the game. Add a script, paste in the code.
 
-Images and the template list (templates.json) need to be on a https: server. Github is possibly
-the easiest option, if you get the Github windows client for updating it. Use Commit from your
-local folder, followed by "Push origin".
-
-Template images should be png, and must use the exact 16 palette colors. Bit depth does not matter.
-Transparent pngs are supported. Inexact colors will skip and spam the console.
-Path for the image is same as the json. But you can also give a full image URL to other sites.
+Images and the template list (templates.json, or templates/data.json) need to be on a https: server. 
+Github is possibly the easiest option, if you get the Github windows client for updating it. 
+Use Commit from your local folder, followed by "Push origin".
 
 baseTemplateUrl is read from a cookie, and prompted for if missing. You don't need to edit this
-script to change it. Console:
+script to change it. You can also change it in console:
 setCookie("baseTemplateUrl", "https://path-here/")
+
+Template images should be png. With setting subfolders=false, path for the image is same as the json.
+But you can also give a full image URL to other sites in the "name" property.
+
+If you set subfolders=true, images are read from images/ and templates from templates/data.json, like
+in older map scripts.
 
 Keys:
 space : Show and hide the minimap. This also reloads your template images after update.
@@ -47,6 +48,7 @@ setCookie("baseTemplateUrl", "")
 
 // Default location of template images and templates.json. Is user input and stored in a cookie.
 var baseTemplateUrl = 'https://raw.githubusercontent.com/meatie-se/pixel-minimap/master/'; //only as default
+var subfolders = false; //True means use subfolders images and templates
 var vers = "Minimap: meatie";
 var range = 6; //margin for showing the map window
 
@@ -72,7 +74,9 @@ window.addEventListener('load', function() {
 function startup() {
   var i, t = getCookie("baseTemplateUrl");
   if(!t) {
-    t = prompt("Location of template images and templates.json\nhttps: is required. Stores in a cookie.", baseTemplateUrl);
+		var msg = "URL Location of template images and templates.json.";
+		if(subfolders) msg = "Base URL where you have folders: templates and images."
+    t = prompt(msg+"\nhttps: is required. Stores in a cookie.", baseTemplateUrl);
     if(t) setCookie("baseTemplateUrl", t);
     else t = "";
   }
@@ -249,7 +253,7 @@ window.listTemplates = function () {
     if(!eles.name) return;
     var z = eles.width>300 ? 2 : eles.width>100 ? 4 : 8;
     var n = eles.name+"";
-    if(n.indexOf("//") < 0) n = baseTemplateUrl + n;
+    if(n.indexOf("//") < 0) n = baseTemplateUrl + (subfolders?"images/":"") + n;
     mdstr += '\n#### ' + index + ' ' + eles.width + 'x' + eles.height + ' ' + n;
     mdstr += ' https://pixelzone.io/?p=' + Math.floor(eles.x + eles.width / 2) + ',' + Math.floor(eles.y + eles.height / 2) + ','+z+'\n';
     if(!isNaN(eles.width) && !isNaN(eles.height)) ttlpx += eles.width * eles.height;
@@ -263,7 +267,7 @@ function updateloop() {
   if(!toggle_show) return;
   // Get JSON of available templates
   var xmlhttp = new XMLHttpRequest();
-  var url = baseTemplateUrl + "templates.json?" + new Date().getTime();
+  var url = baseTemplateUrl + (subfolders?"templates/data.json":"templates.json") + "?" + new Date().getTime();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4) {
       if(this.status == 200) {
@@ -384,7 +388,7 @@ function loadImage(imagename) {
   console.log("    Load image " + imagename, cachebreaker);
   image_list[imagename] = new Image();
   var src = template_list[imagename].name;
-  if(src.indexOf("//") < 0) src = baseTemplateUrl + src;
+  if(src.indexOf("//") < 0) src = baseTemplateUrl + (subfolders?"images/":"") + src;
   if(cachebreaker) src += "?" + cachebreaker;
   image_list[imagename].crossOrigin = "Anonymous";
   image_list[imagename].src = src;
