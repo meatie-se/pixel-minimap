@@ -472,6 +472,7 @@ window.addEventListener('keydown', function(e) {
   switch(e.keyCode) {//e.key is too national
     case 13: //Enter: captcha Send
       document.getElementsByClassName("MuiButton-text")[1].click();
+      break;
     case 32: //space
       toggleShow();
       if(toggle_show) {
