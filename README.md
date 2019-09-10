@@ -10,6 +10,8 @@ space: Hide / show.  We start up with minimap hidden.
 
 x: For each press, hide more ui elements temporarily
 
+Enter: Captcha Send button
+
 The number beside user count is seconds the user count stayed the same. It helps a little bit to detect if you get disconnected.
 
 Demo

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.7.3
+// @version      1.7.4
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -34,6 +34,7 @@ space : Show and hide the minimap. This also reloads your template images after 
 Q-[ and A-G : select color
 +/- numpad: zoom minimap
 X : Hide one of three UI elements, per keypress. Top link box and captcha logo are always hidden.
+Enter: Captcha Send button
 
 Minimap starts hidden. The script is intended to load in light mode for multiple tabs.
 
@@ -469,6 +470,8 @@ function getCenter() {
 
 window.addEventListener('keydown', function(e) {
   switch(e.keyCode) {//e.key is too national
+    case 13: //Enter: captcha Send
+      document.getElementsByClassName("MuiButton-text")[1].click();
     case 32: //space
       toggleShow();
       if(toggle_show) {
