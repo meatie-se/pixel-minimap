@@ -38,7 +38,7 @@ Enter: Captcha Send button
 
 Minimap starts hidden. The script is intended to load in light mode for multiple tabs.
 
-The number after player count is a change timer. If it goes high, you likely got disconncted.
+The number after player count is a change timer. If it goes high or red, you likely got disconncted, but it's not certain.
 
 Useful console commands:
 listTemplates()
@@ -237,8 +237,11 @@ function checkAlive() {
     playercountNode.nodeValue = " "+playercountNode.nodeValue;
     playercountNode.bump = Date.now();
     bumpSpan.innerText = 0;
+    bumpSpan.parentElement.style.color="unset";
   } else {
-    bumpSpan.innerText = Math.floor((Date.now() - playercountNode.bump)/1000);
+    var c = Math.floor((Date.now() - playercountNode.bump)/1000);
+    bumpSpan.innerText = c;
+    if(c>600) bumpSpan.parentElement.style.color="#f66";
   }
 }
 
