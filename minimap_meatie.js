@@ -42,7 +42,8 @@ The number after player count is a change timer. If it goes high or red, you lik
 
 Useful console commands:
 listTemplates()
-setCookie("baseTemplateUrl", "")
+setCookie("baseTemplateUrl", "template-path-here")
+setCookie("baseTemplateUrl", "")  - now it will prompt for path on reload
 
 <Euzu>: as far as I know, it's not a bot, so you can use it
 */
