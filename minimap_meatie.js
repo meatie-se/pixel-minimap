@@ -111,7 +111,7 @@ function startup() {
 
   var div = document.createElement('div');
   div.setAttribute('class', 'post block bc2');
-  div.innerHTML = '<style>.grecaptcha-badge,#message{display: none}.palette-footer{z-index:5}.MuiDialog-root .item{background:none}</style>\n' +
+  div.innerHTML = '<style>.grecaptcha-badge,#message{display: none !important}.palette-footer{z-index:5}.MuiDialog-root .item{background:none}</style>\n' +
     '<div id="minimapbg" style="background-color:rgba(0,0,0,0.2); border-radius:12px; position:absolute; right:6px; bottom:6px; z-index:1;">' +
     '<div class="posy unselectable" id="posyt" style="background-size:100%; color:#fff; text-align:center; line-height:32px; vertical-align:middle; width:auto; height:auto; padding:6px 8px;">' +
     '<div id="minimap-text"></div>' +
