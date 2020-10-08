@@ -241,8 +241,11 @@ function checkAlive() {
     bumpSpan.parentElement.style.color="unset";
   } else {
     var c = Math.floor((Date.now() - playercountNode.bump)/1000);
+		var limit = 990/(Math.log(parseInt(playercountNode.nodeValue))+.001);
+    if(isNaN(limit)) limit = 600;
     bumpSpan.innerText = c;
-    if(c>600) bumpSpan.parentElement.style.color="#f66";
+    if(c>limit) bumpSpan.parentElement.style.color="#f66";
+    if(c==0) bumpSpan.parentElement.style.color="#fff";
   }
 }
 
