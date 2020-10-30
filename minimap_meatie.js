@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.7.5
+// @version      1.7.6
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -15,8 +15,8 @@ Instructions
 
 Use Tampermonkey plugin to inject this into the game. Add a script, paste in the code.
 
-Images and the template list (templates.json, or templates/data.json) need to be on a https: server. 
-Github is possibly the easiest option, if you get the Github windows client for updating it. 
+Images and the template list (templates.json, or templates/data.json) need to be on a https: server.
+Github is possibly the easiest option, if you get the Github windows client for updating it.
 Use Commit from your local folder, followed by "Push origin".
 
 baseTemplateUrl is read from a cookie, and prompted for if missing. You don't need to edit this
@@ -60,7 +60,6 @@ var minimap, minimap_board, minimap_cursor, minimap_box, minimap_text;
 var ctx_minimap, ctx_minimap_board, ctx_minimap_cursor;
 //Regular Expression to get coordinates out of URL
 var re_url = /\?p=([-\d]+),([-\d]+)/;
-var timerDiv;
 var playercountNode, bumpSpan;
 
 Number.prototype.between = function(a, b) {
@@ -70,14 +69,18 @@ Number.prototype.between = function(a, b) {
 };
 
 window.addEventListener('load', function() {
-  setTimeout(startup, 400);
+  setTimeout(startup, 500);
+  setTimeout("if(!window.timerDiv) startup();", 1200);
 }, false);
 
 function startup() {
+  window.timerDiv = document.getElementById("timer");
+  if(!window.timerDiv) return;
+
   var i, t = getCookie("baseTemplateUrl");
   if(!t) {
-		var msg = "URL Location of template images and templates.json.";
-		if(subfolders) msg = "Base URL where you have folders: templates and images."
+    var msg = "URL location of template images and templates.json.";
+    if(subfolders) msg = "Base URL where you have folders: templates and images."
     t = prompt(msg+"\nhttps: is required. Stores in a cookie.", baseTemplateUrl);
     if(t) setCookie("baseTemplateUrl", t);
     else t = "";
@@ -141,7 +144,6 @@ function startup() {
   ctx_minimap = minimap.getContext("2d");
   ctx_minimap_board = minimap_board.getContext("2d");
   ctx_minimap_cursor = minimap_cursor.getContext("2d");
-  timerDiv = document.getElementById("timer");
   minimap_box = document.getElementById("minimap-box");
   minimap_text = document.getElementById("minimap-text");
 
@@ -163,7 +165,7 @@ function startup() {
   toggleShow(toggle_show);
   drawBoard();
   drawCursor();
-  timerDiv.style.width = "50px";
+  window.timerDiv.style.width = "50px";
 
   /*document.getElementById("minimapbg").onclick = function () {
     toggleShow()
@@ -241,7 +243,7 @@ function checkAlive() {
     bumpSpan.parentElement.style.color="unset";
   } else {
     var c = Math.floor((Date.now() - playercountNode.bump)/1000);
-		var limit = 990/(Math.log(parseInt(playercountNode.nodeValue))+.001);
+    var limit = 990/(Math.log(parseInt(playercountNode.nodeValue))+.001);
     if(isNaN(limit)) limit = 600;
     bumpSpan.innerText = c;
     if(c>limit) bumpSpan.parentElement.style.color="#f66";
