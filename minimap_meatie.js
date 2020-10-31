@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.7.7
+// @version      1.7.8
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -551,14 +551,15 @@ function clickColor(c) {
   target.dispatchEvent(e);
 }
 
-window.setCookie = function(name,value) { //you can supply "minutes" as 3rd arg.
-  var argv = setCookie.arguments;
-  var argc = setCookie.arguments.length;
-  var minutes = (argc > 2) ? argv[2] : 720*24*60; //default 720 days
+function SetCookie(name,value) { //you can supply "minutes" as 3rd arg.
+  var argv = SetCookie.arguments;
+  var argc = SetCookie.arguments.length;
+  var minutes = (argc > 2) ? argv[2] : 720*1440; //default 720 days
   var date = new Date();
   date.setTime(date.getTime()+(minutes*60*1000));
-  var expires = "; expires="+date.toGMTString();
-  document.cookie = name+"="+value+expires+"; path=/";
+  var expires;
+  if(argc > 2 && minutes) expires = "; Expires="+date.toGMTString();
+  document.cookie = name+"="+value+expires+"; SameSite=Lax; Path=/";
 }
 
 function getCookie(name) {
