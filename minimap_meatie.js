@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.7.6
+// @version      1.7.7
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -68,12 +68,8 @@ Number.prototype.between = function(a, b) {
   return this > min && this < max;
 };
 
-window.addEventListener('load', function() {
-  setTimeout(startup, 500);
-  setTimeout("if(!window.timerDiv) startup();", 1200);
-}, false);
-
 function startup() {
+  if(window.timerDiv) return;
   window.timerDiv = document.getElementById("timer");
   if(!window.timerDiv) return;
 
@@ -215,6 +211,12 @@ function startup() {
     }
   }, 20);
 }
+
+window.addEventListener('load', function() {
+  setTimeout(startup, 500);
+  setTimeout(startup, 900);
+  setTimeout(startup, 1900);
+}, false);
 
 function mymousemove(evt) {
   if(!toggle_show || !coorDOM) return;
