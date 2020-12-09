@@ -8,6 +8,7 @@
 // @homepage     https://github.com/meatie-se/pixel-minimap
 // @updateURL    https://raw.githubusercontent.com/meatie-se/pixel-minimap/master/minimap_meatie.js
 // @grant        none
+// @run-at       document-end
 // ==/UserScript==
 /*Based on https://github.com/Pinkfloydd/ArgentinaMap_PixelZone
 
@@ -551,16 +552,17 @@ function clickColor(c) {
   target.dispatchEvent(e);
 }
 
-function SetCookie(name,value) { //you can supply "minutes" as 3rd arg.
-  var argv = SetCookie.arguments;
-  var argc = SetCookie.arguments.length;
+function setCookie(name,value) { //you can supply "minutes" as 3rd arg.
+  var argv = setCookie.arguments;
+  var argc = setCookie.arguments.length;
   var minutes = (argc > 2) ? argv[2] : 720*1440; //default 720 days
   var date = new Date();
   date.setTime(date.getTime()+(minutes*60*1000));
-  var expires;
+  var expires = "";
   if(argc > 2 && minutes) expires = "; Expires="+date.toGMTString();
   document.cookie = name+"="+value+expires+"; SameSite=Lax; Path=/";
 }
+window.setCookie = setCookie;
 
 function getCookie(name) {
   var value = "; " + document.cookie;
