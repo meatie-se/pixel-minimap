@@ -559,7 +559,7 @@ function setCookie(name,value) { //you can supply "minutes" as 3rd arg.
   var date = new Date();
   date.setTime(date.getTime()+(minutes*60*1000));
   var expires = "";
-  if(argc > 2 && minutes) expires = "; Expires="+date.toGMTString();
+  if(minutes > 0) expires = "; Expires="+date.toGMTString();
   document.cookie = name+"="+value+expires+"; SameSite=Lax; Path=/";
 }
 window.setCookie = setCookie;
@@ -575,6 +575,4 @@ Colors.colorsPalette[0..15][0..2]
   Weirdness: darkgray is 0, black is 1
 Colors.getColorIdFromRGB([0,0,230])  exact only
 Colors.getColorStrFromId(15) = "rgb(0, 0, 230)"
-
-Cookie: lastPaletteColor
 */
