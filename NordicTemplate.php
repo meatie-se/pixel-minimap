@@ -3,7 +3,7 @@ Convert 1:1 png to 300% dot-style png template for template script.
 by per@icode.se
 
 Settings:  */
-$width  = 2000; //output
+$width  = 1000; //output
 $height = 1000;
 $template = 'NordicTemplateSrc.png'; //1:1 transparent png starting at top left
 $out      = 'NordicTemplate.png';
