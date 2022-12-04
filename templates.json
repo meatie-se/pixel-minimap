@@ -102,7 +102,11 @@
   "width": 113, "height": 88
 }
 
-
+,"two-manga": {
+  "name": "two-manga.png",
+  "x": -3619,  "y": 1025,
+  "width": 404, "height": 186
+}
 
 
 }
