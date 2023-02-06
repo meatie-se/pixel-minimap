@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.8.0
+// @version      1.8.1
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -169,6 +169,11 @@ function startup() {
   drawCursor();
 
   document.getElementsByClassName("_ratio_1owdq_1")[0].parentElement.style = "position:absolute;left:158px;zoom:0.66";
+  var pal = document.getElementsByClassName("_ratio_1owdq_1")[0].firstChild.firstChild;
+  // Loop the color divs, add tooltips
+  for(i=0; i<16; i++) {
+    pal.childNodes[i].firstChild.title = "QERTYUIOPFGHJKLZ".substr(i,1)+":"+i;
+  }
 
   document.getElementById("hide-map").onclick = function () {
     toggleShow(false);
