@@ -161,6 +161,9 @@ function startup() {
   ctx_minimap.msImageSmoothingEnabled = false;
   ctx_minimap.imageSmoothingEnabled = false;
 
+  //Bugfix really
+  document.getElementsByClassName("_pointer-children_xd2n8_73")[0].style = "max-height:1px";
+
   toggleShow(toggle_show);
   drawBoard();
   drawCursor();
