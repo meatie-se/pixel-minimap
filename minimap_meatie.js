@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.7.8
+// @version      1.8.0
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -30,16 +30,14 @@ But you can also give a full image URL to other sites in the "name" property.
 If you set subfolders=true, images are read from images/ and templates from templates/data.json, like
 in older map scripts.
 
+https://pixelzone.io/2023/ is not supported.
+
 Keys:
 space : Show and hide the minimap. This also reloads your template images after update.
-Q-[ and A-G : select color
+QERTYUIOP and FGHJKLZ : select color
 +/- numpad: zoom minimap
-X : Hide one of three UI elements, per keypress. Top link box and captcha logo are always hidden.
-Enter: Captcha Send button
 
 Minimap starts hidden. The script is intended to load in light mode for multiple tabs.
-
-The number after player count is a change timer. If it goes high or red, you likely got disconncted, but it's not certain.
 
 Useful console commands:
 listTemplates()
@@ -59,8 +57,6 @@ var x, y, zoomlevel, zooming_out, zooming_in, zoom_time, x_window, y_window, coo
 var toggle_show, toggle_follow, counter, image_list, needed_templates, mousemoved;
 var minimap, minimap_board, minimap_cursor, minimap_box, minimap_text;
 var ctx_minimap, ctx_minimap_board, ctx_minimap_cursor;
-//Regular Expression to get coordinates out of URL
-var re_url = /\?p=([-\d]+),([-\d]+)/;
 var playercountNode, bumpSpan;
 
 Number.prototype.between = function(a, b) {
@@ -71,10 +67,15 @@ Number.prototype.between = function(a, b) {
 
 function startup() {
   if(window.timerDiv) return;
-  window.timerDiv = document.getElementById("timer");
-  if(!window.timerDiv) return;
+  console.log("# startup");
+  window.timerDiv = document.getElementsByClassName("_shake_vadgf_30");
+  if(!window.timerDiv.length) {window.timerDiv=0; return};
+  window.timerDiv = window.timerDiv[0].firstChild; //div with 2 spans+img
+  window.timerDiv.childNodes[2].remove(); //img
+  window.timerDiv = window.timerDiv.firstChild; //span
 
   var i, t = getCookie("baseTemplateUrl");
+  var leftContainer, usersDiv, coordDiv;
   if(!t) {
     var msg = "URL location of template images and templates.json.";
     if(subfolders) msg = "Base URL where you have folders: templates and images."
@@ -85,10 +86,20 @@ function startup() {
   baseTemplateUrl = t;
 
   console.log(vers+". TemplateUrl", baseTemplateUrl);
-  console.log("Try: listTemplates() and keys space, QWERTYUIOP[ ASDFG, X");
-  gameWindow = document.getElementById("canvas");
+  console.log("Try: listTemplates() and keys space, QERTYUIOP FGHJKLZ");
+  gameWindow = document.getElementsByTagName("canvas")[0];
+  leftContainer = document.getElementsByClassName("_left_16o3w_27")[0];
+  usersDiv = leftContainer.childNodes[0];
+  coordDiv = leftContainer.childNodes[1];
   //DOM element of the displayed X, Y
-  coorDOM = document.getElementById("coordinatesNote");
+  coorDOM = coordDiv.childNodes[1];
+  playercountNode = usersDiv.childNodes[0];
+  if(playercountNode) {
+    /*bumpSpan = document.createElement('span');
+    bumpSpan.setAttribute('style', 'font-size:60%;margin-left:5px');
+    playercountNode.parentElement.parentElement.appendChild(bumpSpan);
+    setInterval(checkAlive, 1000);*/
+  }
   //coordinates of the middle of the window
   x_window = y_window = 0;
   //coordinates of cursor
@@ -111,8 +122,8 @@ function startup() {
 
   var div = document.createElement('div');
   div.setAttribute('class', 'post block bc2');
-  div.innerHTML = '<style>.grecaptcha-badge,#message{display: none !important}.palette-footer{z-index:5}.MuiDialog-root .item{background:none}</style>\n' +
-    '<div id="minimapbg" style="background-color:rgba(0,0,0,0.2); border-radius:12px; position:absolute; right:6px; bottom:6px; z-index:1;">' +
+  div.innerHTML = '<style>#not_Used{display: none !important}</style>\n' +
+    '<div id="minimapbg" style="background-color:rgba(0,0,0,0.5); border-radius:12px; position:absolute; right:6px; bottom:6px; z-index:1;">' +
     '<div class="posy unselectable" id="posyt" style="background-size:100%; color:#fff; text-align:center; line-height:32px; vertical-align:middle; width:auto; height:auto; padding:6px 8px;">' +
     '<div id="minimap-text"></div>' +
     '<div id="minimap-title" style="line-height: 15px; font-size: 0.9em;">' + vers + '</div>' +
@@ -144,15 +155,6 @@ function startup() {
   minimap_box = document.getElementById("minimap-box");
   minimap_text = document.getElementById("minimap-text");
 
-  playercountNode = document.getElementById("playerCounterNote");
-  if(playercountNode) {
-    playercountNode = playercountNode.childNodes[0].childNodes[0].childNodes[0];
-    bumpSpan = document.createElement('span');
-    bumpSpan.setAttribute('style', 'font-size:60%;margin-left:5px');
-    playercountNode.parentElement.parentElement.appendChild(bumpSpan);
-    setInterval(checkAlive, 1000);
-  }
-
   //No Antialiasing when scaling!
   ctx_minimap.mozImageSmoothingEnabled = false;
   ctx_minimap.webkitImageSmoothingEnabled = false;
@@ -162,11 +164,9 @@ function startup() {
   toggleShow(toggle_show);
   drawBoard();
   drawCursor();
-  window.timerDiv.style.width = "50px";
 
-  /*document.getElementById("minimapbg").onclick = function () {
-    toggleShow()
-  };*/
+  document.getElementsByClassName("_ratio_1owdq_1")[0].parentElement.style = "position:absolute;left:158px;zoom:0.66";
+
   document.getElementById("hide-map").onclick = function () {
     toggleShow(false);
   };
@@ -207,16 +207,19 @@ function startup() {
   //mousemove heavy work
   setInterval(function() {
     if(mousemoved) {
-      mousemoved = 0;
+      mousemoved = false;
       loadTemplates();
     }
   }, 20);
 }
 
 window.addEventListener('load', function() {
-  setTimeout(startup, 500);
-  setTimeout(startup, 900);
+  setTimeout(startup, 800);
+  setTimeout(startup, 1200);
   setTimeout(startup, 1900);
+  setTimeout(startup, 2600);
+  setTimeout(startup, 3600);
+  setTimeout(startup, 8000);
 }, false);
 
 function mymousemove(evt) {
@@ -239,18 +242,19 @@ function mymousemove(evt) {
 }
 
 function checkAlive() {
-  if(playercountNode.nodeValue.substr(0,1) != " ") {
-    playercountNode.nodeValue = " "+playercountNode.nodeValue;
+  if(playercountNode.innerText.substr(0,1) != " ") {
+    playercountNode.innerText = " "+playercountNode.innerText;
     playercountNode.bump = Date.now();
-    bumpSpan.innerText = 0;
-    bumpSpan.parentElement.style.color="unset";
+    //bumpSpan.innerText = 0;
+    //bumpSpan.parentElement.style.color="unset";
   } else {
+    /*
     var c = Math.floor((Date.now() - playercountNode.bump)/1000);
-    var limit = 990/(Math.log(parseInt(playercountNode.nodeValue))+.001);
+    var limit = 990/(Math.log(parseInt(playercountNode.innerText))+.001);
     if(isNaN(limit)) limit = 600;
     bumpSpan.innerText = c;
     if(c>limit) bumpSpan.parentElement.style.color="#f66";
-    if(c==0) bumpSpan.parentElement.style.color="#fff";
+    if(c==0) bumpSpan.parentElement.style.color="#fff";*/
   }
 }
 
@@ -467,24 +471,16 @@ function drawCursor() {
 }
 
 function getCenter() {
-  var url = window.location.href;
-  var m = url.match(re_url);
-  if(m) {
-    x_window = parseInt(m[1]);
-    y_window = parseInt(m[2]);
-  } else {
-    x_window = 0;
-    y_window = 0;
-  }
+  var s = window.location.search.split(",");
+  var cx = parseInt(s[0].split("=")[1]), cy = parseInt(s[1]);
+  x_window = cx;
+  y_window = cy;
   //console.log("center: ", x_window, y_window);
   loadTemplates();
 }
 
 window.addEventListener('keydown', function(e) {
   switch(e.keyCode) {//e.key is too national
-    case 13: //Enter: captcha Send
-      document.getElementsByClassName("MuiButton-text")[1].click();
-      break;
     case 32: //space
       toggleShow();
       if(toggle_show) {
@@ -494,22 +490,28 @@ window.addEventListener('keydown', function(e) {
       }
       mymousemove();
       break;
-    case 81: clickColor(0); break; //black is 1
-    case 87: clickColor(1); break; //dark gray is 0
-    case 69: clickColor(2); break;
-    case 82: clickColor(3); break;
-    case 84: clickColor(4); break;
-    case 89: clickColor(5); break;
-    case 85: clickColor(6); break;
-    case 73: clickColor(7); break;
-    case 79: clickColor(8); break;
-    case 80: clickColor(9); break;
-    case 221: clickColor(10); break;
-    case 65: clickColor(11); break;
-    case 83: clickColor(12); break;
-    case 68: clickColor(13); break;
-    case 70: clickColor(14); break;
-    case 71: clickColor(15); break;
+    case 81: clickColor(0); break;
+    case 69: clickColor(1); break;
+    case 82: clickColor(2); break;
+    case 84: clickColor(3); break;
+    case 89: clickColor(4); break;
+    case 85: clickColor(5); break;
+    case 73: clickColor(6); break;
+    case 79: clickColor(7); break;
+    case 80: clickColor(8); break;
+    case 70: clickColor(9); break;
+    case 71: clickColor(10); break;
+    case 72: clickColor(11); break;
+    case 74: clickColor(12); break;
+    case 75: clickColor(13); break;
+    case 76: clickColor(14); break;
+    case 192:
+    case 90: clickColor(15); break;
+    case 87: //WASD
+    case 65:
+    case 83:
+    case 68:
+      break;
     case 107: //numpad +
       zooming_in = true;
       zooming_out = false;
@@ -523,7 +525,7 @@ window.addEventListener('keydown', function(e) {
       zooming_out = false;
       break;
     case 88: //x: hide more elements
-      var UIDiv = document.getElementById("upperCanvas").nextElementSibling;
+      /*var UIDiv = document.getElementById("upperCanvas").nextElementSibling;
       var menu = UIDiv.childNodes[4];
       var playercount = UIDiv.childNodes[3].childNodes[0];
       var coords = playercount.nextElementSibling;
@@ -533,7 +535,7 @@ window.addEventListener('keydown', function(e) {
         playercount.style.display = "none";
       } else {
         coords.style.display = "none";
-      }
+      }*/
       break;
     default:
       console.log("keydown", e.keyCode, e.key);
@@ -541,15 +543,13 @@ window.addEventListener('keydown', function(e) {
 });
 
 function clickColor(c) {
-  var pal = document.getElementById("palette");
+  var pal = document.getElementsByClassName("_ratio_1owdq_1")[0].firstChild.firstChild;
   //https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent
   var e = new MouseEvent("click", {
-    bubbles: true,
-    offsetX: pal.offsetLeft+4,
-    offsetY: pal.offsetTop+4
+    clientX: 5, clientY: 5,
+    bubbles: true
   });
-  var target = pal.childNodes[parseInt(c/8)].childNodes[c % 8];
-  target.dispatchEvent(e);
+  pal.childNodes[c].firstChild.dispatchEvent(e);
 }
 
 function setCookie(name,value) { //you can supply "minutes" as 3rd arg.
@@ -569,10 +569,3 @@ function getCookie(name) {
   var parts = value.split("; " + name + "=");
   if (parts.length == 2) return parts.pop().split(";").shift();
 }
-
-/* Pixelzone stuff you can use:
-Colors.colorsPalette[0..15][0..2]
-  Weirdness: darkgray is 0, black is 1
-Colors.getColorIdFromRGB([0,0,230])  exact only
-Colors.getColorStrFromId(15) = "rgb(0, 0, 230)"
-*/
