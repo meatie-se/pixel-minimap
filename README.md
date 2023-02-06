@@ -10,7 +10,7 @@ space: Hide / show.  Important: We start up with minimap hidden.
 
 ## Instructions
 
-Use Tampermonkey plugin to inject this into the game. Add a script, paste in the code.
+Use Tampermonkey plugin to inject this into the game. Add a script, paste in the code from minimap_meatie.js.
 
 Images and the template list (templates.json, or templates/data.json) need to be on a https: server.
 Github is possibly the easiest option, if you get the Github windows client for updating it.
