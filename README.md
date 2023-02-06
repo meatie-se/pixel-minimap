@@ -27,6 +27,6 @@ var subfolders = true;
 With setting subfolders=false, path for the image is same as the json.
 But you can also give a full image URL to other sites in the "name" property.
 
-Demo (old version)
+Demo
 
 ![Demo](demo.png)
