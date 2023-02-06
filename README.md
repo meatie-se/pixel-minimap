@@ -1,6 +1,6 @@
 # pixel-minimap
 
-## Keys:
+## Keys
 
 QERTYUIOP and FGHJKLZ: Select color
 
@@ -8,7 +8,7 @@ space: Hide / show.  Important: We start up with minimap hidden.
 
 +/-: Zoom the minimap
 
-Instructions
+## Instructions
 
 Use Tampermonkey plugin to inject this into the game. Add a script, paste in the code.
 
