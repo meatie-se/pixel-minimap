@@ -2,19 +2,13 @@
 
 ## Keys:
 
-Q...G: Select color
+QERTYUIOP and FGHJKLZ: Select color
 
-space: Hide / show.  We start up with minimap hidden.
+space: Hide / show.  Important: We start up with minimap hidden.
 
 +/-: Zoom the minimap
 
-x: For each press, hide more ui elements temporarily
-
-Enter: Captcha Send button
-
-The number beside user count is seconds the user count stayed the same. It helps a little bit to detect if you get disconnected.
-
-Demo
+Demo (old version)
 
 ![Demo](demo.png)
 
