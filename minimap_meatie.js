@@ -6,7 +6,7 @@
 // @author       meatie
 // @match        https://pixelzone.io/*
 // @homepage     https://github.com/meatie-se/pixel-minimap
-// @updateURL    https://raw.githubusercontent.com/meatie-se/pixel-minimap/master/minimap_meatie.js
+// @downloadURL  https://raw.githubusercontent.com/meatie-se/pixel-minimap/master/minimap_meatie.js
 // @grant        none
 // @run-at       document-end
 // ==/UserScript==
