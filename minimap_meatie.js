@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.8.1
+// @version      1.8.2
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -57,7 +57,7 @@ var x, y, zoomlevel, zooming_out, zooming_in, zoom_time, x_window, y_window, coo
 var toggle_show, toggle_follow, counter, image_list, needed_templates, mousemoved;
 var minimap, minimap_board, minimap_cursor, minimap_box, minimap_text;
 var ctx_minimap, ctx_minimap_board, ctx_minimap_cursor;
-var playercountNode, bumpSpan;
+var playercountNode, bumpSpan, starttm;
 
 Number.prototype.between = function(a, b) {
   var min = Math.min.apply(Math, [a, b]);
@@ -73,6 +73,7 @@ function startup() {
   window.timerDiv = window.timerDiv[0].firstChild; //div with 2 spans+img
   window.timerDiv.childNodes[2].remove(); //img
   window.timerDiv = window.timerDiv.firstChild; //span
+  window.clearInterval(starttm);
 
   var i, t = getCookie("baseTemplateUrl");
   var leftContainer, usersDiv, coordDiv;
@@ -222,12 +223,7 @@ function startup() {
 }
 
 window.addEventListener('load', function() {
-  setTimeout(startup, 800);
-  setTimeout(startup, 1200);
-  setTimeout(startup, 1900);
-  setTimeout(startup, 2600);
-  setTimeout(startup, 3600);
-  setTimeout(startup, 8000);
+  starttm = setInterval(startup, 300);
 }, false);
 
 function mymousemove(evt) {
