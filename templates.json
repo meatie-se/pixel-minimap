@@ -91,5 +91,12 @@
   "width": 404, "height": 186
 }
 
+,"goodness": {
+  "comment": "Your Name",
+  "name": "goodness.png",
+  "x": -2230,  "y": 751,
+  "width": 211, "height": 349
+}
+
 
 }
