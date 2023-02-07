@@ -68,7 +68,7 @@ Number.prototype.between = function(a, b) {
 function startup() {
   if(window.timerDiv) return;
   console.log("# startup");
-  window.timerDiv = document.getElementsByClassName("_shake_vadgf_30");
+  window.timerDiv = document.getElementsByClassName("_center_16o3w_14 _top_16o3w_18 _fit-content_xd2n8_34");
   if(!window.timerDiv.length) {window.timerDiv=0; return};
   window.timerDiv = window.timerDiv[0].firstChild; //div with 2 spans+img
   window.timerDiv.childNodes[2].remove(); //img
