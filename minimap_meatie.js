@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.8.3
+// @version      1.8.4
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -313,7 +313,9 @@ function toggleShow(newValue) {
     minimap_box.style.display = "block";
     minimap_text.style.display = "none";
     document.getElementById("minimap-config").style.display = "block";
+    window.cachebreaker++;
     loadTemplates();
+    updateloop();
   } else {
     minimap_box.style.display = "none";
     minimap_text.innerHTML = "Show Minimap";
@@ -321,8 +323,7 @@ function toggleShow(newValue) {
     minimap_text.style.cursor = "pointer";
     document.getElementById("minimap-config").style.display = "none";
   }
-  var g = document.getElementsByClassName("grecaptcha-badge");
-  if(g[0]) g[0].style.display = "none";
+  mymousemove();
 }
 
 function zoomIn() {
@@ -487,12 +488,6 @@ window.addEventListener('keydown', function(e) {
   switch(e.keyCode) {//e.key is too national
     case 32: //space
       toggleShow();
-      if(toggle_show) {
-        window.cachebreaker++;
-        console.log("cachebreaker = ",cachebreaker);
-        updateloop();
-      }
-      mymousemove();
       break;
     case 81: clickColor(0); break;
     case 69: clickColor(1); break;
@@ -515,6 +510,7 @@ window.addEventListener('keydown', function(e) {
     case 65:
     case 83:
     case 68:
+    case 16: //shift
       break;
     case 107: //numpad +
       zooming_in = true;
