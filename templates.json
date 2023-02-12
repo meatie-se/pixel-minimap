@@ -92,5 +92,52 @@
   "width": 211, "height": 349
 }
 
+,"panther": {
+  "name": "panther.png",
+  "x": -1576,  "y": -816,
+  "width": 176, "height": 121
+}
+
+,"hamra": {
+  "name": "hamra.png",
+  "x": -1987,  "y": -423,
+  "width": 166, "height": 190
+}
+
+,"IT-pinocchio": {
+  "name": "IT-pinocchio.png",
+  "x": -602,  "y": -233,
+  "width": 154, "height": 636
+}
+
+,"catfish": {
+  "name": "catfish.png",
+  "x": -1078,  "y": -1458,
+  "width": 58, "height": 47
+}
+
+,"darksnake": {
+  "name": "darksnake.png",
+  "x": -2805,  "y": -226,
+  "width": 844, "height": 377
+}
+
+,"bonsai": {
+  "name": "bonsai.png",
+  "x": 579,  "y": -1238,
+  "width": 400, "height": 121
+}
+
+,"Aladdin": {
+  "name": "Aladdin.png",
+  "x": -1416,  "y": 728,
+  "width": 381, "height": 232
+}
+
+,"Colosseum": {
+  "name": "Colosseum.png",
+  "x": 11,  "y": 471,
+  "width": 225, "height": 176
+}
 
 }
