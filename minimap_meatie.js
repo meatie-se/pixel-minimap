@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.8.4
+// @version      1.8.5
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -58,6 +58,7 @@ var toggle_show, toggle_follow, counter, image_list, needed_templates, mousemove
 var minimap, minimap_board, minimap_cursor, minimap_box, minimap_text;
 var ctx_minimap, ctx_minimap_board, ctx_minimap_cursor;
 var playercountNode, bumpSpan, starttm;
+var sounds = [];
 
 Number.prototype.between = function(a, b) {
   var min = Math.min.apply(Math, [a, b]);
@@ -163,7 +164,7 @@ function startup() {
   ctx_minimap.imageSmoothingEnabled = false;
 
   //Bugfix really
-  document.getElementsByClassName("_pointer-children_xd2n8_73")[0].style = "max-height:1px";
+  //document.getElementsByClassName("_pointer-children_xd2n8_73")[0].style = "max-height:1px";
 
   toggleShow(toggle_show);
   drawBoard();
@@ -568,4 +569,17 @@ function getCookie(name) {
   var value = "; " + document.cookie;
   var parts = value.split("; " + name + "=");
   if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+function sound(i) { //1-4
+  if(!sounds[i]) sounds[i] = new Audio("/assets/sounds/bip"+i+".mp3");
+  if(sounds[i]) sounds[i].play();
+}
+
+{ //add a sound to console warnings (Did not receive pixel confirmation)
+  const warn = console.warn.bind(console);
+  console.warn = (...args) => {
+    sound(3);
+    warn(...args);
+  }
 }
