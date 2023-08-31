@@ -108,7 +108,7 @@ function startup() {
   x = y = 0;
   //list of all available templates
   window.template_list = null;
-  zoomlevel = 14;
+  zoomlevel = 18;
   //toggle options
   toggle_show = false;
   toggle_follow = true; //if minimap is following window, x_window = x and y_window = y;
