@@ -21,7 +21,14 @@ The template folder by default has no subfolders. It can have subfolders, "image
 var subfolders = true;
 
 With setting subfolders=false, path for the image is same as the json.
-But you can also give a full image URL to other sites in the "name" property.
+But you can also give a full image URL to other sites in the "name" property. Example of this (excerpt):
+```
+,"Boxxy": {
+  "name": "https://raw.githubusercontent.com/meatie-se/pixel-minimap/master/_Boxxy.png",
+  "x": -694,  "y": -662,
+  "width": 51, "height": 94
+}
+```
 
 Images and the template list (templates.json, or templates/data.json) need to be on a https: server.
 Github is possibly the easiest option, if you get the Github windows client for updating it.
