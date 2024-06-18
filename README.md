@@ -32,8 +32,7 @@ Path for the image is same as the json. But you can also give a full image URL t
   "width": 51, "height": 94
 }
 ```
-The template folder by default has no subfolders. It can have subfolders, "images" and "templates" (to match other scripts), if you change:
-
+The template folder by default has no subfolders. It can have subfolders, "images" and "templates" (to match other scripts), if you change:  
   var subfolders = true;
 
 Demo
