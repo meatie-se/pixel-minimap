@@ -12,7 +12,7 @@ Important: We start up with minimap hidden, so press space once.
 
 ## Instructions
 
-On Chrome or Edge, use the [Tampermonkey plugin](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) to inject this into the game. Open Tamper console, add a script, paste in the code from minimap_meatie.js.
+On Chrome or Edge, use the [Tampermonkey plugin](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) to inject this into the game. Open Tamper console, add a script, paste in the code from [minimap_meatie.js.](https://raw.githubusercontent.com/meatie-se/pixel-minimap/master/minimap_meatie.js)
 
 On Chrome and probably Edge, sadly you have to enable Developer mode now to run Tampermonkey. [Here is how to do this.](https://www.tampermonkey.net/faq.php?locale=en#Q209)
 
