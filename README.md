@@ -4,7 +4,7 @@
 
 QERTYUIOP and FGHJKLZ: Select color
 
-space: Hide / show.
+space: Show / Hide.
 
 Important: We start up with minimap hidden, so press space once.
 
@@ -14,7 +14,9 @@ Important: We start up with minimap hidden, so press space once.
 
 On Chrome or Edge, use the [Tampermonkey plugin](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) to inject this into the game. Open Tamper console, add a script, paste in the code from minimap_meatie.js.
 
-On first run, the script asks for template location. You have to allow popups for this. If you want to use my templates, just accept the default template location.
+On Chrome and probably Edge, sadly you have to enable Developer mode now to run Tampermonkey. [Here is how to do this.](https://www.tampermonkey.net/faq.php?locale=en#Q209)
+
+On first run, the script asks for template location. You have to allow popups for this. If you want to use my templates, just accept the default template location and you are done.
 
 Advanced: Managing your own template list. Images and the template list (templates.json, or templates/data.json) need to be on a https: server. Github is possibly the easiest option, if you get the Github windows client for updating it.
 Use Commit from your local folder, followed by "Push origin".
