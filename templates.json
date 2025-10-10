@@ -121,12 +121,6 @@
   "width": 381, "height": 232
 }
 
-,"Colosseum": {
-  "name": "Colosseum.png",
-  "x": 11,  "y": 471,
-  "width": 225, "height": 176
-}
-
 ,"hvy-space": {
   "name": "hvy-space-2.png",
   "x": 705,  "y": -3852,
@@ -139,6 +133,17 @@
   "width": 178, "height": 292
 }
 
+,"voidItaly": {
+  "name": "voidItaly.png",
+  "x": -448,  "y": -447,
+  "width": 1134, "height": 886
+}
+
+,"italy-norway": {
+  "name": "italy-norway.png",
+  "x": -447,  "y": 439,
+  "width": 1311, "height": 240
+}
 
 
 }
