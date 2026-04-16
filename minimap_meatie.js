@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.8.5
+// @version      1.8.6
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -57,7 +57,7 @@ var x, y, zoomlevel, zooming_out, zooming_in, zoom_time, x_window, y_window, coo
 var toggle_show, toggle_follow, counter, image_list, needed_templates, mousemoved;
 var minimap, minimap_board, minimap_cursor, minimap_box, minimap_text;
 var ctx_minimap, ctx_minimap_board, ctx_minimap_cursor;
-var playercountNode, bumpSpan, starttm;
+var playercountNode, bumpSpan, starttm, moderator;
 var sounds = [];
 
 Number.prototype.between = function(a, b) {
@@ -69,14 +69,21 @@ Number.prototype.between = function(a, b) {
 function startup() {
   if(window.timerDiv) return;
   console.log("# startup");
-  window.timerDiv = document.getElementsByClassName("_center_16o3w_14 _top_16o3w_18 _fit-content_xd2n8_34");
-  if(!window.timerDiv.length) {window.timerDiv=0; return};
-  window.timerDiv = window.timerDiv[0].firstChild; //div with 2 spans+img
-  window.timerDiv.childNodes[2].remove(); //img
-  window.timerDiv = window.timerDiv.firstChild; //span
+	var i;
+	i = document.getElementsByClassName("_user-button_1056s_1");
+	if(i) i=i[0].parentElement.parentElement.parentElement;
+	moderator = (i && i.childElementCount>1);
+	if(moderator) window.timerDiv = i;
+	else {
+		window.timerDiv = document.getElementsByClassName("_center_16o3w_14 _top_16o3w_18 _fit-content_xd2n8_34");
+		if(!window.timerDiv.length) {window.timerDiv=0; return};
+		window.timerDiv = window.timerDiv[0].firstChild; //div with 2 spans+img
+		window.timerDiv.childNodes[2].remove(); //img
+		window.timerDiv = window.timerDiv.firstChild; //span
+	}
   window.clearInterval(starttm);
 
-  var i, t = getCookie("baseTemplateUrl");
+  var t = getCookie("baseTemplateUrl");
   var leftContainer, usersDiv, coordDiv;
   if(!t) {
     var msg = "URL location of template images and templates.json.";
