@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.8.6
+// @version      1.8.7
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -69,7 +69,7 @@ Number.prototype.between = function(a, b) {
 function startup() {
   if(window.timerDiv) return;
   console.log("# startup");
-	var i;
+	var i, c;
 	i = document.getElementsByClassName("_user-button_1056s_1");
 	if(i && i.length) i=i[0].parentElement.parentElement.parentElement;
 	moderator = (i && i.childElementCount>1);
@@ -84,7 +84,7 @@ function startup() {
   window.clearInterval(starttm);
 
   var t = getCookie("baseTemplateUrl");
-  var leftContainer, usersDiv, coordDiv;
+  var leftContainer, usersDiv;
   if(!t) {
     var msg = "URL location of template images and templates.json.";
     if(subfolders) msg = "Base URL where you have folders: templates and images."
@@ -99,9 +99,11 @@ function startup() {
   gameWindow = document.getElementsByTagName("canvas")[0];
   leftContainer = document.getElementsByClassName("_left_16o3w_27")[0];
   usersDiv = leftContainer.childNodes[0];
-  coordDiv = leftContainer.childNodes[1];
   //DOM element of the displayed X, Y
-  coorDOM = coordDiv.childNodes[1];
+	i = document.getElementsByTagName('span');
+	for(c=0; c<i.length; c++) {
+		if(i[c].innerText.indexOf("y:")>0) coorDOM = i[c];
+	}
   playercountNode = usersDiv.childNodes[0];
   if(playercountNode) {
     /*bumpSpan = document.createElement('span');
