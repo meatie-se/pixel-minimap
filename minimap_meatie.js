@@ -69,18 +69,18 @@ Number.prototype.between = function(a, b) {
 function startup() {
   if(window.timerDiv) return;
   console.log("# startup");
-	var i, c;
-	i = document.getElementsByClassName("_user-button_1056s_1");
-	if(i && i.length) i=i[0].parentElement.parentElement.parentElement;
-	moderator = (i && i.childElementCount>1);
-	if(moderator) window.timerDiv = i;
-	else {
-		window.timerDiv = document.getElementsByClassName("_center_16o3w_14 _top_16o3w_18 _fit-content_xd2n8_34");
-		if(!window.timerDiv.length) {window.timerDiv=0; return};
-		window.timerDiv = window.timerDiv[0].firstChild; //div with 2 spans+img
-		window.timerDiv.childNodes[2].remove(); //img
-		window.timerDiv = window.timerDiv.firstChild; //span
-	}
+  var i, c;
+  i = document.getElementsByClassName("_user-button_1056s_1");
+  if(i && i.length) i=i[0].parentElement.parentElement.parentElement;
+  moderator = (i && i.childElementCount>1);
+  if(moderator) window.timerDiv = i;
+  else {
+    window.timerDiv = document.getElementsByClassName("_center_16o3w_14 _top_16o3w_18 _fit-content_xd2n8_34");
+    if(!window.timerDiv.length) {window.timerDiv=0; return};
+    window.timerDiv = window.timerDiv[0].firstChild; //div with 2 spans+img
+    window.timerDiv.childNodes[2].remove(); //img
+    window.timerDiv = window.timerDiv.firstChild; //span
+  }
   window.clearInterval(starttm);
 
   var t = getCookie("baseTemplateUrl");
@@ -99,11 +99,11 @@ function startup() {
   gameWindow = document.getElementsByTagName("canvas")[0];
   leftContainer = document.getElementsByClassName("_left_16o3w_27")[0];
   usersDiv = leftContainer.childNodes[0];
-  //DOM element of the displayed X, Y
-	i = document.getElementsByTagName('span');
-	for(c=0; c<i.length; c++) {
-		if(i[c].innerText.indexOf("y:")>0) coorDOM = i[c];
-	}
+  //find DOM element of the displayed X, Y
+  i = document.getElementsByTagName('span');
+  for(c=0; c<i.length; c++) {
+    if(i[c].innerText.indexOf("y:")>0) coorDOM = i[c];
+  }
   playercountNode = usersDiv.childNodes[0];
   if(playercountNode) {
     /*bumpSpan = document.createElement('span');
