@@ -71,7 +71,7 @@ function startup() {
   console.log("# startup");
 	var i;
 	i = document.getElementsByClassName("_user-button_1056s_1");
-	if(i) i=i[0].parentElement.parentElement.parentElement;
+	if(i && i.length) i=i[0].parentElement.parentElement.parentElement;
 	moderator = (i && i.childElementCount>1);
 	if(moderator) window.timerDiv = i;
 	else {
