@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.9.0
+// @version      1.9.1
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -58,7 +58,7 @@ var x, y, zoomlevel, zooming_out, zooming_in, zoom_time, x_window, y_window, coo
 var toggle_show, counter, image_list, needed_templates, mousemoved;
 var minimap, minimap_board, minimap_cursor, minimap_box, minimap_text;
 var ctx_minimap, ctx_minimap_board, ctx_minimap_cursor;
-var playercountNode, bumpSpan, starttm, moderator, pal;
+var playercountNode, bumpSpan, starttm, moderator, pal, shifted;
 var Colors, sounds = [];
 var autoColor = true, currentcolor=-1, currentcolor2=-1;
 
@@ -258,7 +258,7 @@ function startup() {
       mousemoved = false;
       loadTemplates();
     }
-  }, 20);
+  }, 30);
   window.addEventListener("blur", (e) => {
     window.focused=false;
   });
@@ -282,7 +282,8 @@ function mymousemove(evt) {
     y = y_new;
     x_window = x;
     y_window = y;
-    mousemoved = true;
+    if(shifted) loadTemplates();
+    else mousemoved = true;
   }
 
   if(!autoColor || needed_templates.length == 0) return;
@@ -574,6 +575,7 @@ window.addEventListener('keydown', function(e) {
     case 83:
     case 68:
     case 16: //shift
+      shifted = true;
       break;
     case 107: //numpad +
       zooming_in = true;
@@ -602,6 +604,14 @@ window.addEventListener('keydown', function(e) {
       break;
     default:
       console.log("keydown", e.keyCode, e.key);
+  }
+});
+
+window.addEventListener('keyup', function(e) {
+  switch(e.keyCode) {
+    case 16: //shift
+      shifted = false;
+      break;
   }
 });
 
