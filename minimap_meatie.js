@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PZone Minimap meatie
 // @namespace    http://tampermonkey.net/
-// @version      1.9.1
+// @version      1.9.2
 // @description  -
 // @author       meatie
 // @match        https://pixelzone.io/*
@@ -206,6 +206,8 @@ function startup() {
   pal = document.getElementsByClassName("_ratio_1owdq_1")[0].firstChild.firstChild;
   // Loop the color divs, add tooltips
   for(i=0; i<16; i++) {
+    // Tag the div with color id
+    pal.childNodes[i].firstChild.lang = i;
     pal.childNodes[i].firstChild.title = "QERTYUIOPFGHJKLZ".substr(i,1)+":"+i;
 		// identify selected one
     if(pal.childNodes[i].firstChild.style.borderTopWidth != "0em") currentcolor = i;
