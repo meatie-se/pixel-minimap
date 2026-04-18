@@ -4,7 +4,7 @@
 
 QERTYUIOP and FGHJKLZ: Select color
 
-space: Show / Hide.
+space: Show / Hide.  
 N : toggle autoColor
 
 Important: We start up with minimap hidden, so press space once.
