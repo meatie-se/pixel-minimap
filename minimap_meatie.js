@@ -202,7 +202,7 @@ function startup() {
   drawBoard();
   drawCursor();
 
-  document.getElementsByClassName("_ratio_1owdq_1")[0].parentElement.style = "position:absolute;left:158px;zoom:0.66";
+  document.getElementsByClassName("_ratio_1owdq_1")[0].parentElement.style = "position:absolute;left:158px;zoom:0.79";
   pal = document.getElementsByClassName("_ratio_1owdq_1")[0].firstChild.firstChild;
   // Loop the color divs, add tooltips
   for(i=0; i<16; i++) {
