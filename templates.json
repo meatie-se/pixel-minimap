@@ -151,5 +151,11 @@
   "width": 1311, "height": 240
 }
 
+,"triangleman-circle": {
+  "name": "triangleman-circle.png",
+  "x": 1013,  "y": 1240,
+  "width": 374, "height": 365
+}
+
 
 }
